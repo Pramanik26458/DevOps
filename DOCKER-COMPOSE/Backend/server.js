@@ -4,6 +4,8 @@ import morgan from 'morgan'
 
 const app = express();
 app.use(morgan('dev'));
+app.use(express.static('public'));
+
 
 app.get("/api/health", (req, res) => {
     res.status(200).json({
@@ -27,6 +29,11 @@ app.get("/api/user", (req, res) => {
         {id:3,name:"mohan"},
     ]
     res.status(200).json(user);
+})
+
+
+app.get('*name', (req, res) => {
+    res.sendFile('public/index.html', { root: '__dirname' });
 })
 
 app.listen(3000,()=>{
